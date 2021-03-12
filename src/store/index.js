@@ -30,6 +30,7 @@ export default new Vuex.Store({
     // login successful
     setUser(state, username) {
       state.user = username;
+      state.status.loggedIn = true;
       // console.log("Test1:", state)
       console.log("Test2:", state.status.loggedIn)
       // console.log("Test3:", state.my_user.loggedIn)
@@ -38,10 +39,15 @@ export default new Vuex.Store({
       // state.my_user.loggedIn = true;
       // state.my_user.initialState.user = user;
     },
+    logout(state) {
+      state.status.loggedIn = false;
+      state.user = null;
+    },
   },
   getters: {
     StatePosts: (state) => state.posts,
     StateUser: (state) => state.my_username,
+    isAuthenticated: (state) => state.status.loggedIn
     // StateUser: (state) => state.my_user.status,
   },
   actions: {
@@ -70,8 +76,10 @@ export default new Vuex.Store({
       await commit("setUser", my_user.get("username"));
 
     },
-    async logout() {
+    async logout({commit}) {
       localStorage.removeItem('user');
+      await commit("logout");
+
     }
   },
   modules: {
