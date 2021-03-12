@@ -24,8 +24,8 @@
       <ul>
         <li v-for="post in Posts" :key="post.id">
           <div id="post-div">
-            <p>{{ post.name }}</p>
-            <p>{{ post.description }}</p>
+            <h3>Name: {{ post.name }}</h3>
+            <p>Description: {{ post.description }}</p>
           </div>
         </li>
       </ul>
