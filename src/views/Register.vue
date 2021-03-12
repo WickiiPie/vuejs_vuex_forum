@@ -93,6 +93,9 @@ export default {
         (data) => {
           this.message = data.message;
           this.successful = true;
+          this.$router.push("/login/").catch((err) => {
+        throw new Error(`Problem handling something: ${err}.`);
+        });
         },
         (error) => {
           this.message =

@@ -27,15 +27,6 @@ const initialState = user
 ////////////////////
 
 export default new Vuex.Store({
-  // state: {
-  //   posts: null,
-  // // my_user: user,
-  //   my_user: {
-  //     initialState
-  //   }
-  //     ,
-  //   my_username: ''
-  // },
   state: initialState,
   mutations: {
     setPosts(state, posts) {
@@ -43,14 +34,11 @@ export default new Vuex.Store({
     },
     // login successful
     setUser(state, username) {
-
       // console.log("Test1:", state)
       console.log("Test2:", state.status.loggedIn);
       // console.log("Test3:", state.my_user.loggedIn)
       // console.log("Test4:", state.my_user.user)
       console.log("Test:", state.user);
-      // state.my_user.loggedIn = true;
-      // state.my_user.initialState.user = user;
       state.user = username;
       state.status.loggedIn = true;
     },
@@ -67,9 +55,8 @@ export default new Vuex.Store({
   },
   getters: {
     StatePosts: (state) => state.posts,
-    StateUser: (state) => state.my_username,
+    StateUser: (state) => state.user,
     isAuthenticated: (state) => state.status.loggedIn,
-    // StateUser: (state) => state.my_user.status,
   },
   actions: {
     async GetPosts(state, posts) {
@@ -123,10 +110,12 @@ export default new Vuex.Store({
         .then(
           (response) => {
             commit("registerSuccess");
+            console.log("Register success:", response.data)
             return Promise.resolve(response.data);
           },
           (error) => {
             commit("registerFailure");
+            console.log("Register error:", error.data)
             return Promise.reject(error);
           }
         );
