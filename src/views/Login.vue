@@ -29,7 +29,8 @@ export default {
         username: "",
         password: "",
       },
-      showError: false
+      showError: false,
+      message: '',
     };
   },
   methods: {
@@ -44,6 +45,11 @@ export default {
           this.showError = false
       } catch (error) {
         this.showError = true
+        this.message =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+        console.log(error.message)
       }
     },
   },

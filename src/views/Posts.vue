@@ -1,8 +1,9 @@
 <template>
   <div class="container">
-    <!-- <div v-if="User">
+    <div v-if="User">
       <p>Hi {{ User }}</p>
     </div>
+    <!--
     <div>
       <form @submit.prevent="submit">
         <div>
@@ -19,7 +20,7 @@
         <button type="submit">Submit</button>
       </form>
     </div>-->
-    <div class="posts" v-if="Posts">
+    <div class="posts" v-if="Posts" >
       <ul>
         <li v-for="post in Posts" :key="post.id">
           <div id="post-div">
@@ -29,15 +30,15 @@
         </li>
       </ul>
     </div>
-    <!--
-    <div v-else>Oh no!!! We have no posts</div>-->
+
+    <div v-else>Oh no!!! We have no posts</div>
   </div>
 </template>
 
 <script>
 import {
    mapGetters,
-  mapActions,
+   mapActions,
 } from "vuex";
 
 export default {
@@ -52,8 +53,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ Posts: "StatePosts",
-    //  User: "StateUser"
+    ...mapGetters({
+        Posts: "StatePosts",
+        User: "StateUser"
       }),
   },
   created: function () {
