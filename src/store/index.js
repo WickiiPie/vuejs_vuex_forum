@@ -2,7 +2,11 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import axios from "axios";
-import authHeader from "@/services/auth-header.js";
+// import authHeader from "@/services/auth-header.js";
+import forums from './modules/forums';
+import subforums from './modules/subforums';
+import threads from './modules/threads';
+import posts from './modules/posts';
 Vue.use(Vuex);
 ////////////////////
 const user = JSON.parse(localStorage.getItem("user"));
@@ -13,7 +17,7 @@ const initialState = user
         loggedIn: true,
       },
       user,
-      posts: null,
+      // posts: null,
       my_username: "",
     }
   : {
@@ -21,7 +25,7 @@ const initialState = user
         loggedIn: false,
       },
       user: null,
-      posts: null,
+      // posts: null,
       my_username: "",
     };
 ////////////////////
@@ -29,9 +33,9 @@ const initialState = user
 export default new Vuex.Store({
   state: initialState,
   mutations: {
-    setPosts(state, posts) {
-      state.posts = posts;
-    },
+    // setPosts(state, posts) {
+    //   state.posts = posts;
+    // },
     // login successful
     setUser(state, username) {
       // console.log("Test1:", state)
@@ -54,22 +58,21 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    StatePosts: (state) => state.posts,
+    // StatePosts: (state) => state.posts,
     StateUser: (state) => state.user,
     isAuthenticated: (state) => state.status.loggedIn,
   },
   actions: {
-    async GetPosts(state, posts) {
-      // let response = await axios.get("posts/");
-      let response = await axios.get("posts/", {
-        headers: authHeader(),
-      });
-      console.log("Response : ", response);
-      state.posts = posts;
+    // async GetPosts({commit}) {
+    //   let response = await axios.get("forum/", {
+    //     headers: authHeader(),
+    //   });
+    //   console.log("Response : ", response);
+    //   // state.posts = posts;
 
-      console.log("user:", user.access);
-      // commit("setPosts", response.data);
-    },
+    //   console.log("user:", user.access);
+    //   commit("setPosts", response.data);
+    // },
     async LogIn({ commit }, my_user) {
       await axios.post("login/", my_user).then((response) => {
         console.log("DEBUG", response);
@@ -121,6 +124,11 @@ export default new Vuex.Store({
         );
     },
   },
-  modules: {},
+  modules: {
+    forums,
+    subforums,
+    threads,
+    posts,
+  },
   plugins: [createPersistedState()],
 });

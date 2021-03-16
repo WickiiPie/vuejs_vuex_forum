@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h1>Thread detail</h1>
-    <div class="threads" v-if="relatedPosts">
+    <h1>now in Threads</h1>
+    <div class="threads" v-if="relatedThreads">
       <ul>
-        <li v-for="thread in relatedPosts" :key="thread.id">
+        <li v-for="thread in relatedThreads" :key="thread.id">
           <div id="thread-div">
             <!-- <h3>Name: {{ thread.title }}</h3> -->
             <h3 class>
@@ -18,7 +18,16 @@
     </div>
     <div v-else>
       Oh no!!! We have no posts
-
+      <li v-for="thread in my_threads" :key="thread.id">
+        <div id="thread-div">
+          <h3>Name: {{ thread.title }}</h3>
+          <h3>ID: {{ thread.id }}</h3>
+          <p>Description: {{ thread.content }}</p>
+        </div>
+        <h4 class>
+          <router-link :to="{name: 'comments', params: {id: thread.id }}">{{thread.title}}</router-link>
+        </h4>
+      </li>
     </div>
   </div>
 </template>
@@ -81,7 +90,7 @@ export default {
   // },
 
   methods: {
-    ...mapActions(["fetchPosts"]),
+    ...mapActions(["fetchThreads"]),
     // onDblClick(todo) {
     //   const updTodo = {
     //     id: todo.id,
@@ -92,10 +101,10 @@ export default {
     // this.updateTodo(updTodo);
   },
 
-  computed: mapGetters(["relatedPosts"]),
+  computed: mapGetters(["relatedThreads"]),
   created() {
     var id = this.id;
-    this.fetchPosts(id);
+    this.fetchThreads(id);
   },
 };
 </script>

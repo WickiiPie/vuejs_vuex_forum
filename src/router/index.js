@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Posts from '@/views/Posts.vue'
+import Forum from '@/views/Forum.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
-
+import SubForum from '@/views/Subforum.vue'
+import Threads from '@/views/Thread.vue'
+import Posts from '@/views/Posts.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,9 +24,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/posts',
-    name: 'Posts',
-    component: Posts
+    path: '/forum',
+    name: 'Forum',
+    component: Forum
   },
   {
     path: '/login',
@@ -36,7 +38,21 @@ const routes = [
     name: 'Register',
     component: Register
   },
-
+  {
+    path: '/forum/:id',
+    name: 'SubForum',
+    component: SubForum
+  },
+  {
+    path: '/forum/subforum/:id',
+    name: 'Thread',
+    component: Threads
+  },
+  {
+    path: '/node/:id',
+    name: 'Posts',
+    component: Posts
+  },
 ]
 
 const router = new VueRouter({
