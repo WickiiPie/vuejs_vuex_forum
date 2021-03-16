@@ -21,14 +21,15 @@
       </form>
     </div>-->
 
-  <h3>Forums </h3>
-    <div class="forum" v-if="allForums" >
+    <h3>Forums</h3>
+    <div class="forum" v-if="allForums">
       <ul>
         <li v-for="forum in allForums" :key="forum.id">
           <div id="forum-div">
-            <h3 class="">Name: <router-link
-                :to="{name: 'SubForum', params: {id: forum.id }}"
-                >{{ forum.name }}</router-link></h3>
+            <h3 class>
+              Name:
+              <router-link :to="{name: 'SubForum', params: {id: forum.id }}">{{ forum.name }}</router-link>
+            </h3>
             <p>Description: {{ forum.description }}</p>
           </div>
         </li>
@@ -42,59 +43,16 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  // name: "Posts",
-  // components: {},
-  // data() {
-  //   return {
-  //     form: {
-  //       name: "",
-  //       description: "",
-  //     },
-  //   };
-  // },
-  // computed: {
-  //   ...mapGetters({
-  //     Posts: "StatePosts",
-  //     User: "StateUser",
-  //   }),
-  // },
-  // created: function () {
-  //   // a function to call getposts action
-  //   this.GetPosts();
-  // },
-  // //   computed: {
-  // //     ...mapGetters({ Posts: "StatePosts", User: "StateUser" }),
-  // //   },
-  // methods: {
-  //   ...mapActions(["CreatePost", "GetPosts"]),
-  //   // async submit() {
-  //   //   try {
-  //   //     await this.CreatePost(this.form);
-  //   //   } catch (error) {
-  //   //     throw "Sorry you can't make a post now!"
-  //   //   }
-  //   // },
-  // },
-
   name: "Forums",
   methods: {
     ...mapActions(["fetchForums", "deleteTodo", "updateTodo"]),
-    onDblClick(todo) {
-      const updTodo = {
-        id: todo.id,
-        title: todo.title,
-        completed: !todo.completed
-      };
-
-      this.updateTodo(updTodo);
-    }
   },
+
   computed: mapGetters(["allForums", "StateUser"]),
 
   created() {
     this.fetchForums();
-  }
-
+  },
 };
 </script>
 <style scoped>

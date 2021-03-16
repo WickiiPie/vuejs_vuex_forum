@@ -1,29 +1,25 @@
 import axios from 'axios';
 
 const state = {
-  comments: [],
-  parent_thread_id: null,
+  threads: [],
   target_thread: null
 };
 
 const getters = {
-  relatedPosts: state => state.comments,
-  relatedParentId: state => state.parent_thread_id,
-  targetThread: state => state.target_thread,
+  relatedComments: state => state.threads,
+  headThread: state => state.target_thread,
 };
 
 const actions = {
-  async fetchPosts({
-    commit
-  }, id) {
+  async fetchComments({ commit }, id) {
     const response = await axios.get(
       `http://127.0.0.1:8080/api/node/${id}`
     );
 
-    commit('setPosts', response.data);
+    commit('setComments', response.data);
   },
 
-  async fetchThreadDetail({
+  async fetchHeadThread({
     commit
   }, id) {
     const response = await axios.get(
@@ -37,8 +33,8 @@ const actions = {
 };
 
 const mutations = {
-  setPosts: (state, posts) => (state.comments = posts),
-  setTargetThread: (state, threads) => {
+  setComments: (state, threads) => (state.threads = threads),
+  setHeadThread: (state, threads) => {
 
     console.log("threads:", threads)
 

@@ -5,7 +5,6 @@
       <ul>
         <li v-for="subforum in relatedSubforums" :key="subforum.id">
           <div id="subforum-div">
-            <!-- <h3>Name: {{ subforum.name }}</h3> -->
              <h3 class="">Name:<router-link
                 :to="{name: 'Thread', params: {id: subforum.id }}"
                 >{{ subforum.name }}</router-link></h3>
@@ -32,14 +31,6 @@ export default {
   },
   methods: {
     ...mapActions(["fetchSubforums"]),
-    // onDblClick(todo) {
-    //   const updTodo = {
-    //     id: todo.id,
-    //     title: todo.title,
-    //     completed: !todo.completed
-    //   };
-
-    // this.updateTodo(updTodo);
   },
 
   computed: mapGetters(["relatedSubforums"]),

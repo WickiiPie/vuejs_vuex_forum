@@ -7,6 +7,7 @@ import forums from './modules/forums';
 import subforums from './modules/subforums';
 import threads from './modules/threads';
 import posts from './modules/posts';
+import comments from './modules/comments';
 Vue.use(Vuex);
 ////////////////////
 const user = JSON.parse(localStorage.getItem("user"));
@@ -33,16 +34,9 @@ const initialState = user
 export default new Vuex.Store({
   state: initialState,
   mutations: {
-    // setPosts(state, posts) {
-    //   state.posts = posts;
-    // },
-    // login successful
     setUser(state, username) {
-      // console.log("Test1:", state)
-      console.log("Test2:", state.status.loggedIn);
-      // console.log("Test3:", state.my_user.loggedIn)
-      // console.log("Test4:", state.my_user.user)
-      console.log("Test:", state.user);
+      console.log("Test state user:", state.user);
+      console.log("Test status loggedIn:", state.status.loggedIn);
       state.user = username;
       state.status.loggedIn = true;
     },
@@ -58,21 +52,10 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    // StatePosts: (state) => state.posts,
     StateUser: (state) => state.user,
     isAuthenticated: (state) => state.status.loggedIn,
   },
   actions: {
-    // async GetPosts({commit}) {
-    //   let response = await axios.get("forum/", {
-    //     headers: authHeader(),
-    //   });
-    //   console.log("Response : ", response);
-    //   // state.posts = posts;
-
-    //   console.log("user:", user.access);
-    //   commit("setPosts", response.data);
-    // },
     async LogIn({ commit }, my_user) {
       await axios.post("login/", my_user).then((response) => {
         console.log("DEBUG", response);
@@ -92,15 +75,6 @@ export default new Vuex.Store({
       await commit("logout");
     },
     async Register({ commit }, user) {
-      // console.log("Register form:", user)
-      // let UserForm = new FormData()
-      // UserForm.append('username', user.username)
-      // UserForm.append('password', user.password)
-      // UserForm.append('first_name', user.first_name)
-      // UserForm.append('last_name', user.last_name)
-      // UserForm.append('password2', user.password2)
-      // UserForm.append('email', user.email)
-      // await axios.post('register/', UserForm)
       return axios
         .post("register/", {
           username: user.username,
@@ -129,6 +103,7 @@ export default new Vuex.Store({
     subforums,
     threads,
     posts,
+    comments,
   },
   plugins: [createPersistedState()],
 });

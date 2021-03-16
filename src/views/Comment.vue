@@ -1,31 +1,37 @@
 <template>
   <div class="container">
-    <h1>now in Threads</h1>
-    <div class="threads" v-if="relatedThreads">
+    <h1>now in Comments</h1>
+    <div class="Comments" v-if="relatedComments">
+      <h1>Thread detail</h1>
+      <div class="headThread" v-if="headThread">
+        <h1>hello</h1>
+        <ul v-for="my_thread in headThread" :key="my_thread.id">
+          <h3>ID: {{ my_thread.id }} Name: {{ my_thread.title }}</h3>
+          <h3>Content: {{ my_thread.content }}</h3>
+        </ul>
+      </div>
       <ul>
-        <li v-for="thread in relatedThreads" :key="thread.id">
-          <div id="thread-div">
-            <!-- <h3>Name: {{ thread.title }}</h3> -->
+        <li v-for="comment in relatedComments" :key="comment.id">
+          <div id="comment-div">
             <h3 class>
-              <router-link :to="{name: 'Comments', params: {id: thread.id }}">Name: {{ thread.title }}</router-link>
+              <!-- <router-link :to="{name: 'Posts', params: {id: comment.id }}">Name: {{ comment.title }}</router-link> -->
             </h3>
-            <p>Description: {{ thread.description }}</p>
-            <h3>ID: {{ thread.id }}</h3>
-            <p>Description: {{ thread.content }}</p>
+            <!-- <p>Description: {{ comment.description }}</p> -->
+            <p>ID: {{ comment.id }} Description: {{ comment.content }}</p>
           </div>
         </li>
       </ul>
     </div>
     <div v-else>
       Oh no!!! We have no posts
-      <li v-for="thread in my_threads" :key="thread.id">
-        <div id="thread-div">
-          <h3>Name: {{ thread.title }}</h3>
-          <h3>ID: {{ thread.id }}</h3>
-          <p>Description: {{ thread.content }}</p>
+      <li v-for="comment in my_Comments" :key="comment.id">
+        <div id="comment-div">
+          <h3>Name: {{ comment.title }}</h3>
+          <h3>ID: {{ comment.id }}</h3>
+          <p>Description: {{ comment.content }}</p>
         </div>
         <h4 class>
-          <router-link :to="{name: 'comments', params: {id: thread.id }}">{{thread.title}}</router-link>
+          <router-link :to="{name: 'comments', params: {id: comment.id }}">{{comment.title}}</router-link>
         </h4>
       </li>
     </div>
@@ -36,23 +42,24 @@
 import { mapGetters, mapActions } from "vuex";
 // import axios from 'axios'
 export default {
-  name: "Threads",
+  name: "Comments",
   components: {},
   data() {
     return {
       id: this.$route.params.id, // for id
-      my_threads: [],
+      // my_Comments: [],
     };
   },
 
   methods: {
-    ...mapActions(["fetchThreads"]),
+    ...mapActions(["fetchComments", "fetchHeadThread"]),
   },
 
-  computed: mapGetters(["relatedThreads"]),
+  computed: mapGetters(["relatedComments", "headThread"]),
   created() {
     var id = this.id;
-    this.fetchThreads(id);
+    this.fetchComments(id);
+    this.fetchHeadThread(id);
   },
 };
 </script>
@@ -103,7 +110,7 @@ ul {
   list-style: none;
 }
 
-#thread-div {
+#comment-div {
   border: 3px solid #000;
   width: 500px;
   margin: auto;

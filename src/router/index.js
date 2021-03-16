@@ -6,7 +6,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import SubForum from '@/views/Subforum.vue'
 import Threads from '@/views/Thread.vue'
-import Posts from '@/views/Posts.vue'
+import Comments from '@/views/Comment.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -50,8 +50,8 @@ const routes = [
   },
   {
     path: '/node/:id',
-    name: 'Posts',
-    component: Posts
+    name: 'Comments',
+    component: Comments
   },
 ]
 
